@@ -1,7 +1,20 @@
 {
   "name": "customer-support-system",
   "version": "0.0.0",
+  "description": "고객 지원을 위한 기능들을 제공하는 Project",
+  "keywords": ["Customer Support", "Toy Project"],
+  "homepage": "https://github.com/juyonglee/Customer-Support-Toy-Project",
+  "author": {
+    "email": "juyonglee0208@gmail.com",
+    "name": "Juyong Lee",
+    "url": "https://www.linkedin.com/in/juyong-lee-aa9688160/"
+  },
+  "license": "MIT",
   "private": true,
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/juyonglee/Customer-Support-Toy-Project"
+  },
   "scripts": {
     "start": "node ./bin/www"
   },
