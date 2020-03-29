@@ -27,7 +27,7 @@ app.use(passport.initialize());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 //  Login, Logout을 수행하는 Router 추가
-app.use('/users', authRouter);
+app.use('/auth', authRouter);
 
 // Login 기능 Test를 위한 User 추가
 const testUser = {
