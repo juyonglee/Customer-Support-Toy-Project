@@ -6,4 +6,9 @@ router.post('/login', passport.authenticate('local', { failureRedirect: '/users'
     res.redirect('/')
 });
 
+router.post('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/')
+});
+
 module.exports = router;
