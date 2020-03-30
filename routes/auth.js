@@ -3,7 +3,8 @@ var router = express.Router();
 const passport = require('passport');
 
 router.post('/login', passport.authenticate('local', { failureRedirect: '/auth/login'}), function(req, res) {
-    res.redirect('/')
+    req.session.otp = false;
+    res.redirect('/otp')
 });
 
 router.get('/logout', function(req, res) {
