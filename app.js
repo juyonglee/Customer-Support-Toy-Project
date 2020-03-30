@@ -6,9 +6,12 @@ var logger = require('morgan');
 // Passport 사용을 위한 설정
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-//  Redis 사용을 위한 설정
+// Redis 사용을 위한 설정
 const redis = require('redis');
 const session = require('express-session');
+// Redis Session 사용을 위한 연결 정의
+let RedisStore = require('connect-redis')(session);
+let redisClient = redis.createClient();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -25,11 +28,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(
+    session({
+        store: new RedisStore({ client: redisClient }),
+        secret: 'keyboard cat',
+        resave: false,
+        saveUninitialized: true
+    })
+);
 app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-//  Login, Logout을 수행하는 Router 추가
+// Login, Logout을 수행하는 Router 추가
 app.use('/auth', authRouter);
 
 // Login 기능 Test를 위한 User 추가
@@ -49,18 +61,16 @@ passport.use(new LocalStrategy(
     }
 ));
 
-// Redis Session 사용을 위한 연결 정의
-let RedisStore = require('connect-redis')(session);
-let redisClient = redis.createClient();
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
 
-app.use(
-    session({
-        store: new RedisStore({ client: redisClient }),
-        secret: 'keyboard cat',
-        resave: false,
-        saveUninitialized: true
-    })
-);
+passport.deserializeUser(function(id, done) {
+    // User.findById(id, function(err, user) {
+    //     done(err, user);
+    // });
+    done(null, testUser);
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
