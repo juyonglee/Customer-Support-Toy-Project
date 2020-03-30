@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+	<meta charset="UTF-8">
+	<title>CodePen - OTP Input</title>
+	<link rel="stylesheet" href="../../../stylesheets/OTPstyle.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="prompt">
+	로그인하기 위해 모바일 장치에서 생성된 코드를 입력해 주세요!
+</div>
+
+<form method="post" class="digit-group" data-group-name="digits" data-autosubmit="true" autocomplete="off" action="/auth/otpVerification">
+	<input type="password" id="digit-1" name="digit1" data-next="digit-2"/>
+	<input type="password" id="digit-2" name="digit2" data-next="digit-3" data-previous="digit-1" />
+	<input type="password" id="digit-3" name="digit3" data-next="digit-4" data-previous="digit-2" />
+	<span class="splitter">&ndash;</span>
+	<input type="password" id="digit-4" name="digit4" data-next="digit-5" data-previous="digit-3" />
+	<input type="password" id="digit-5" name="digit5" data-next="digit-6" data-previous="digit-4" />
+	<input type="password" id="digit-6" name="digit6" data-previous="digit-5" />
+</form>
+<!-- partial -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+<script  src="../../../javascripts/OTPscript.js"></script>
+</body>
+</html>
