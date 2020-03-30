@@ -6,6 +6,9 @@ var logger = require('morgan');
 // Passport 사용을 위한 설정
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+//  Redis 사용을 위한 설정
+const redis = require('redis');
+const session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -45,6 +48,19 @@ passport.use(new LocalStrategy(
       return done(null, testUser);
     }
 ));
+
+// Redis Session 사용을 위한 연결 정의
+let RedisStore = require('connect-redis')(session);
+let redisClient = redis.createClient();
+
+app.use(
+    session({
+        store: new RedisStore({ client: redisClient }),
+        secret: 'keyboard cat',
+        resave: false,
+        saveUninitialized: true
+    })
+);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
