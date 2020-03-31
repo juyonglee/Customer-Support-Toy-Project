@@ -47,7 +47,7 @@ app.use('/auth', authRouter);
 // Login 기능 Test를 위한 User 추가
 const testUser = {
     "id": "juyonglee0208",
-    "name": "Juyong Lee",
+    "name": "이주용",
     "password": "0000"
 };
 
